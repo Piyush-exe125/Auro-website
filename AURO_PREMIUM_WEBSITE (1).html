@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURO - Discord Bot</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+background:#000000;
+color:#ffffff;
+font-family:Arial,sans-serif;
+overflow-x:hidden;
+}
+header{
+display:flex;justify-content:space-between;align-items:center;
+padding:20px 8%;
+position:sticky;top:0;
+background:rgba(0,0,0,.7);
+backdrop-filter:blur(12px);
+}
+.logo{font-size:2rem;font-weight:bold;color:#dd0c0c;animation:glow 2s infinite alternate}
+@keyframes glow{
+from{ text-shadow:0 0 10px #ff0000; }
+to{ text-shadow:0 0 20px #ff0000,0 0 40px #ff0000,0 0 60px #ff0000; }
+}
+nav a{
+color:white;text-decoration:none;margin-left:24px;
+transition:.3s;
+}
+nav a:hover{color:#ff4d4d}
+.hero{
+min-height:90vh;
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+text-align:center;padding:20px;
+}
+.hero h1{
+font-size:4rem;
+background:linear-gradient(90deg,#f00000,#5f0202);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:15px;
+}
+.hero p{max-width:700px;color:#cfcfcf;font-size:1.1rem}
+.btns{margin-top:30px}
+.btn{
+display:inline-block;
+padding:14px 28px;
+margin:10px;
+border-radius:50px;
+text-decoration:none;
+font-weight:bold;
+transition:.3s;
+}
+.primary{background:#ff3c3c;color:#000}
+.secondary{border:2px solid #ff3c3c;color:#fff}
+.btn:hover{transform:translateY(-3px)}
+.features{
+padding:80px 8%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+}
+.card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,60,60,.2);
+padding:25px;
+border-radius:20px;
+}
+.card h3{color:#ff5c5c;margin-bottom:10px}
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 0 15px #ff0000,0 0 30px #ff0000,0 0 50px #ff0000;
+transition:.4s;
+}
+.cta{
+text-align:center;
+padding:80px 20px;
+background:linear-gradient(90deg,#ff3c3c,#ff7b7b);
+}
+.cta h2{color:#000;margin-bottom:20px}
+footer{
+text-align:center;
+padding:25px;
+color:#888;
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<style>
+#particles{
+position:fixed;
+inset:0;
+z-index:-1;
+}
+</style>
+<script>
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+let particles=[];
+
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener('resize',resize);
+
+for(let i=0;i<90;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2+1,
+vx:(Math.random()-0.5)*0.6,
+vy:(Math.random()-0.5)*0.6
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+for(const p of particles){
+p.x+=p.vx;
+p.y+=p.vy;
+
+if(p.x<0||p.x>canvas.width)p.vx*=-1;
+if(p.y<0||p.y>canvas.height)p.vy*=-1;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle='rgba(255,80,80,0.8)';
+ctx.fill();
+}
+
+for(let i=0;i<particles.length;i++){
+for(let j=i+1;j<particles.length;j++){
+const dx=particles[i].x-particles[j].x;
+const dy=particles[i].y-particles[j].y;
+const d=Math.sqrt(dx*dx+dy*dy);
+if(d<120){
+ctx.beginPath();
+ctx.moveTo(particles[i].x,particles[i].y);
+ctx.lineTo(particles[j].x,particles[j].y);
+ctx.strokeStyle=`rgba(255,80,80,${1-d/120})`;
+ctx.stroke();
+}
+}
+}
+requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+
+<header>
+<div class="logo">AURO</div>
+<nav>
+<a href="#features">Features</a>
+<a href="https://discord.com/oauth2/authorize?client_id=1510175808311001208" target="_blank">Invite</a>
+<a href="https://discord.gg/YuAtEWDggE" target="_blank">Discord</a>
+</nav>
+</header>
+
+<section class="hero">
+<h1>The AURO Discord Bot's </h1>
+<p>Powerful moderation, leveling, music, utilities, giveaways and much more — all in one modern Discord bot.</p>
+
+<div class="btns">
+<a class="btn primary" href="https://discord.com/oauth2/authorize?client_id=1510175808311001208" target="_blank">Invite Bot</a>
+<a class="btn secondary" href="https://discord.gg/YuAtEWDggE" target="_blank">Join Discord</a>
+</div>
+</section>
+
+<section class="features" id="features">
+
+<div class="card">
+<h3>Advanced Moderation</h3>
+<p>AutoMod, anti-spam, smart filters, warnings, logs and server protection.</p>
+</div>
+
+<div class="card">
+<h3>Leveling System</h3>
+<p>Keep members engaged with XP, ranks and leaderboards.</p>
+</div>
+
+<div class="card">
+<h3>Music & Fun</h3>
+<p>High-quality music playback, games, memes and entertainment commands.</p>
+</div>
+
+<div class="card">
+<h3>Utilities</h3>
+<p>Giveaways, reminders, tickets, reaction roles and more.</p>
+</div>
+</section>
+
+<section class="features">
+<div class="card" style="text-align:center">
+<h3>👑 Owner Card</h3>
+<img src="https://pin.it/2gTp7e6M6" width="120" style="border-radius:50%;border:3px solid #ff3c3c;margin-bottom:10px;">
+<h2>! Piyush.EXE</h2>
+<p>Founder & Owner of AURO</p>
+<a class="btn primary" href="https://www.instagram.com/ll._.piyush._.ll.143" target="_blank">Instagram</a>
+<a class="btn secondary" href="https://discord.com/users/1376646381359468604" target="_blank">Discord Profile</a>
+</div>
+
+<div class="card">
+<h3>📊 Live Bot Stats</h3>
+<p>Servers: 5</p>
+<p>Users: 211</p>
+<p>Ping: Online</p>
+</div>
+
+<div class="card">
+<h3>🛠 Support Server</h3>
+<p>Need help with AURO? Join the official support server.</p>
+<a class="btn primary" href="https://discord.gg/YuAtEWDggE" target="_blank">Join Support Server</a>
+</div>
+</section>
+
+<section class="cta">
+<h2>Ready to Upgrade Your Server?</h2>
+<a class="btn primary" href="https://discord.com/oauth2/authorize?client_id=1510175808311001208" target="_blank">Add AURO Now</a>
+</section>
+
+<footer>
+<div>
+<a href="https://discord.gg/YuAtEWDggE">Discord</a> |
+<a href="https://www.instagram.com/ll._.piyush._.ll.143">Instagram</a> |
+<a href="https://discord.com/users/1376646381359468604">Owner</a>
+</div><br>
+© 2026 AURO • Developed By 👑 Piyush.EXE
+</footer>
+
+</body>
+</html>
